@@ -1,0 +1,73 @@
+<%- include("partials/header.ejs") %>
+
+<div class="cover">
+    <div class="cover-content text-center">
+        <h1>Welcome to Rate my Reads</h1>
+        <p>Where I rate and review books for you.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="headline text-center my-5">
+        <h2 class="mb-3">My collection of rated books</h2>
+        <a href="/add-book"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
+            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0"/>
+          </svg></a>
+    </div>
+    <div class="filter row">
+      <form action="/filter" method="post">
+      <div class="col-3 my-3">
+          <select class="form-select" name="filter">
+            <option selected>Filter by:</option>
+            <option value="rating">Rating</option>
+            <option value="date">Date</option>
+          </select>
+      </div>
+      <div class="col-3 my-3">
+        <select class="form-select" name="order">
+          <option selected>Order</option>
+          <option value="ascending">Lowest to Highest</option>
+          <option value="descending">Highest to Lowest</option>
+        </select>
+      </div>
+        <button class="btn btn-success my-3" type="submit">Go</button>
+      </form>
+    </div>
+    <div class="bookList">
+        <% for (let i=0; i < books.length; i++) { %>
+            <div class="card my-5" style="width: 18rem;">
+                <img src="<%= cover[i] %>" class="card-img-top" alt="<%= books[i].book_name %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= books[i].book_name %></h5>
+                  <p class="card-text"><%= books[i].book_author %></p>
+                  <p class="card-text">Date Finished: <%= date[i] %></p>
+                  <p class="card-text">Rating: <%= books[i].rating %>
+                    <%  if (books[i].rating == 5) { %>
+                      <span>⭐⭐⭐⭐⭐</span>
+                    <% } else if (books[i].rating < 5 && books[i].rating >= 4) { %>
+                      <span>⭐⭐⭐⭐</span>
+                    <% } else if (books[i].rating < 4 && books[i].rating >= 3) { %>
+                      <span>⭐⭐⭐</span>
+                    <% } else if (books[i].rating < 3 && books[i].rating >= 2) { %>
+                      <span>⭐⭐</span>
+                    <%} else if (books[i].rating < 2 && books[i].rating >= 3) { %>
+                      <span>⭐</span>
+                    <% } else { %>
+                      <span> 👎</span>
+                    <% } %>
+                </p>
+                  <p class="card-text">Review: </br> <%= books[i].review %></p>
+                  <form action="/edit-book" method="post">
+                    <button class="btn btn-primary" type="submit" name="editBook" value="<%= books[i].id %>">Edit</button>
+                  </form>
+                  <form action="/delete" method="post">
+                    <button class="btn btn-danger mt-3" type="submit" name="deleteBook" value="<%= books[i].id %>">Delete</button>
+                  </form>
+                </div>
+              </div>
+        <%} %>
+        
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>

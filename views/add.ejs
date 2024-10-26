@@ -1,0 +1,40 @@
+<%- include("partials/header.ejs") %>
+
+<div class="addbook my-5">
+    <div class="add-book-form">
+        <form action="/add" method="post">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingTitle" name="title">
+                <label for="floatingTitle">Book Title</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingAuthor" name="author">
+                <label for="floatingAuthor">Author</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="floatingRating" name="rating"
+                min="0" max="5" step="0.1">
+                <label for="floatingRating">Rating (max 5)</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingIsbn" name="isbn">
+                <label for="floatingIsbn">ISBN (search in google)</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="floatingDate" name="date">
+                <label for="floatingDate">Date Finished</label>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea placeholder="Leave a review" class="form-control" id="floatingReview" name="review" maxlength="250"></textarea>
+                <label for="floatingReview">Review (max 250 char)</label>
+              </div>
+              <button class="btn btn-success" type="submit">Add Book</button>
+        </form>
+    </div>
+    <div class="book-add mx-5 px-5">
+        <img src="/images/book_add.jpg" alt="books">
+    </div>
+</div>
+
+
+<%- include("partials/footer.ejs") %>
